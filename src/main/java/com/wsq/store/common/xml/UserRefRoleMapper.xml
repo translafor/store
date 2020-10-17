@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsq.store.common.mapper.UserRefRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.wsq.store.common.domain.user.UserRefRole" >
+    <id column="FId" property="FId" jdbcType="BIGINT" />
+    <result column="FUserId" property="FUserId" jdbcType="BIGINT" />
+    <result column="FRoleId" property="FRoleId" jdbcType="BIGINT" />
+    <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FId, FUserId, FRoleId, FCreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_userrefrole
+    where FId = #{FId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_store_userrefrole
+    where FId = #{FId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wsq.store.common.domain.user.UserRefRole" >
+    insert into t_store_userrefrole (FId, FUserId, FRoleId, 
+      FCreateTime)
+    values (#{FId,jdbcType=BIGINT}, #{FUserId,jdbcType=BIGINT}, #{FRoleId,jdbcType=BIGINT}, 
+      #{FCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsq.store.common.domain.user.UserRefRole" >
+    insert into t_store_userrefrole
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        FId,
+      </if>
+      <if test="FUserId != null" >
+        FUserId,
+      </if>
+      <if test="FRoleId != null" >
+        FRoleId,
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        #{FId,jdbcType=BIGINT},
+      </if>
+      <if test="FUserId != null" >
+        #{FUserId,jdbcType=BIGINT},
+      </if>
+      <if test="FRoleId != null" >
+        #{FRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="FCreateTime != null" >
+        #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsq.store.common.domain.user.UserRefRole" >
+    update t_store_userrefrole
+    <set >
+      <if test="FUserId != null" >
+        FUserId = #{FUserId,jdbcType=BIGINT},
+      </if>
+      <if test="FRoleId != null" >
+        FRoleId = #{FRoleId,jdbcType=BIGINT},
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsq.store.common.domain.user.UserRefRole" >
+    update t_store_userrefrole
+    set FUserId = #{FUserId,jdbcType=BIGINT},
+      FRoleId = #{FRoleId,jdbcType=BIGINT},
+      FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP}
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+</mapper>

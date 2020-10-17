@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsq.store.common.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.wsq.store.common.domain.user.Role" >
+    <id column="FId" property="FId" jdbcType="BIGINT" />
+    <result column="FRoleNumber" property="FRoleNumber" jdbcType="VARCHAR" />
+    <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FId, FRoleNumber, FCreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_role
+    where FId = #{FId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_store_role
+    where FId = #{FId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wsq.store.common.domain.user.Role" >
+    insert into t_store_role (FId, FRoleNumber, FCreateTime
+      )
+    values (#{FId,jdbcType=BIGINT}, #{FRoleNumber,jdbcType=VARCHAR}, #{FCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsq.store.common.domain.user.Role" >
+    insert into t_store_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        FId,
+      </if>
+      <if test="FRoleNumber != null" >
+        FRoleNumber,
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        #{FId,jdbcType=BIGINT},
+      </if>
+      <if test="FRoleNumber != null" >
+        #{FRoleNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsq.store.common.domain.user.Role" >
+    update t_store_role
+    <set >
+      <if test="FRoleNumber != null" >
+        FRoleNumber = #{FRoleNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsq.store.common.domain.user.Role" >
+    update t_store_role
+    set FRoleNumber = #{FRoleNumber,jdbcType=VARCHAR},
+      FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP}
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+</mapper>

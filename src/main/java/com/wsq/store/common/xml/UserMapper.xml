@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsq.store.common.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.wsq.store.common.domain.user.User" >
+    <id column="FId" property="FId" jdbcType="BIGINT" />
+    <result column="FUserName" property="FUserName" jdbcType="VARCHAR" />
+    <result column="FEmail" property="FEmail" jdbcType="VARCHAR" />
+    <result column="FHeadResId" property="FHeadResId" jdbcType="BIGINT" />
+    <result column="FPhone" property="FPhone" jdbcType="VARCHAR" />
+    <result column="FIdentNumber" property="FIdentNumber" jdbcType="VARCHAR" />
+    <result column="FIsRealAuth" property="FIsRealAuth" jdbcType="CHAR" />
+    <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
+    <result column="FModifyTime" property="FModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FId, FUserName, FEmail, FHeadResId, FPhone, FIdentNumber, FIsRealAuth, FCreateTime, 
+    FModifyTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_user
+    where FId = #{FId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_store_user
+    where FId = #{FId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wsq.store.common.domain.user.User" >
+    insert into t_store_user (FId, FUserName, FEmail, 
+      FHeadResId, FPhone, FIdentNumber, 
+      FIsRealAuth, FCreateTime, FModifyTime
+      )
+    values (#{FId,jdbcType=BIGINT}, #{FUserName,jdbcType=VARCHAR}, #{FEmail,jdbcType=VARCHAR}, 
+      #{FHeadResId,jdbcType=BIGINT}, #{FPhone,jdbcType=VARCHAR}, #{FIdentNumber,jdbcType=VARCHAR}, 
+      #{FIsRealAuth,jdbcType=CHAR}, #{FCreateTime,jdbcType=TIMESTAMP}, #{FModifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsq.store.common.domain.user.User" >
+    insert into t_store_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        FId,
+      </if>
+      <if test="FUserName != null" >
+        FUserName,
+      </if>
+      <if test="FEmail != null" >
+        FEmail,
+      </if>
+      <if test="FHeadResId != null" >
+        FHeadResId,
+      </if>
+      <if test="FPhone != null" >
+        FPhone,
+      </if>
+      <if test="FIdentNumber != null" >
+        FIdentNumber,
+      </if>
+      <if test="FIsRealAuth != null" >
+        FIsRealAuth,
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime,
+      </if>
+      <if test="FModifyTime != null" >
+        FModifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        #{FId,jdbcType=BIGINT},
+      </if>
+      <if test="FUserName != null" >
+        #{FUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="FEmail != null" >
+        #{FEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="FHeadResId != null" >
+        #{FHeadResId,jdbcType=BIGINT},
+      </if>
+      <if test="FPhone != null" >
+        #{FPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="FIdentNumber != null" >
+        #{FIdentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="FIsRealAuth != null" >
+        #{FIsRealAuth,jdbcType=CHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="FModifyTime != null" >
+        #{FModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsq.store.common.domain.user.User" >
+    update t_store_user
+    <set >
+      <if test="FUserName != null" >
+        FUserName = #{FUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="FEmail != null" >
+        FEmail = #{FEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="FHeadResId != null" >
+        FHeadResId = #{FHeadResId,jdbcType=BIGINT},
+      </if>
+      <if test="FPhone != null" >
+        FPhone = #{FPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="FIdentNumber != null" >
+        FIdentNumber = #{FIdentNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="FIsRealAuth != null" >
+        FIsRealAuth = #{FIsRealAuth,jdbcType=CHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="FModifyTime != null" >
+        FModifyTime = #{FModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsq.store.common.domain.user.User" >
+    update t_store_user
+    set FUserName = #{FUserName,jdbcType=VARCHAR},
+      FEmail = #{FEmail,jdbcType=VARCHAR},
+      FHeadResId = #{FHeadResId,jdbcType=BIGINT},
+      FPhone = #{FPhone,jdbcType=VARCHAR},
+      FIdentNumber = #{FIdentNumber,jdbcType=VARCHAR},
+      FIsRealAuth = #{FIsRealAuth,jdbcType=CHAR},
+      FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},
+      FModifyTime = #{FModifyTime,jdbcType=TIMESTAMP}
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+</mapper>

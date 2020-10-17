@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<!-- 数据库驱动包位置 -->
+<!--	<classPathEntry location="D:\mysql-connector-java-8.0.11.jar" />-->
+	<properties resource="datasource.properties"></properties>
+
+	<!-- 指定数据库驱动的jdbc驱动jar包的位置 -->
+	<classPathEntry location="${db.driverLocation}" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 数据库链接URL、用户名、密码 -->
+		<jdbcConnection driverClass="${db.driverClassName}"
+						connectionURL="${db.url}"
+						userId="${db.username}"
+						password="${db.password}">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.wsq.store.common.domain.user" targetProject="E:\\project\\store\\src\\main\\java\\">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- 生成的映射文件包名和位置 -->
+		<sqlMapGenerator targetPackage="com.wsq.store.common.xml" targetProject="E:\\project\\store\\src\\main\\java\\">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.wsq.store.common.mapper" targetProject="E:\\project\\store\\src\\main\\java\\">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		<!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+		<table tableName="t_store_userrefrole" domainObjectName="UserRefRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+			<property name="useActualColumnNames" value="true"/>
+		</table>
+	</context>
+</generatorConfiguration>
