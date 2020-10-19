@@ -32,6 +32,24 @@ public class ResponseResult<T> implements Serializable {
      */
     private T data;
 
-//    private
+    public ResponseResult(int code,T obj){
+        this.code = code;
+        if(0!=code){
+            msg = (String)obj;
+        }
+        else{
+            data = obj;
+        }
+    }
+
+
+    public static ResponseResult success(Object data){
+        return new ResponseResult(0,data);
+    }
+
+    public static ResponseResult fail(int code,String msg){
+        return new ResponseResult(-1,msg);
+    }
+
 
 }
