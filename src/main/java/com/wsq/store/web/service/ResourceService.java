@@ -3,6 +3,8 @@ package com.wsq.store.web.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * 问题：1.如何在本地保存文件 并配置资源映射  2.扩展：利用nginx做服务器？
  * 参考：https://blog.csdn.net/qq_38762237/article/details/81282444
@@ -15,6 +17,13 @@ public class ResourceService {
     public Object upload(MultipartFile file) {
         if (file.isEmpty()) {
             System.out.println("文件为空");
+        }
+        try {
+            byte[] stream = file.getBytes();
+            int offset = 0;
+            int size = stream.length;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return null;
     }
