@@ -3,6 +3,8 @@ package com.wsq.store.web.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -21,7 +23,16 @@ public class ResourceService {
         try {
             byte[] stream = file.getBytes();
             int offset = 0;
-            int size = stream.length;
+            int length = stream.length;
+            String path=System.getProperty("user.dir");
+            File newFile = new File(path);
+            if(null==file){
+                newFile.createNewFile();
+            }
+            FileOutputStream outputStream=new FileOutputStream(newFile);
+            outputStream.write(stream,offset,length);
+            outputStream.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
