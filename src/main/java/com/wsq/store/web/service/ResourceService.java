@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * 问题：1.如何在本地保存文件 并配置资源映射  2.扩展：利用nginx做服务器？
@@ -24,11 +25,21 @@ public class ResourceService {
             byte[] stream = file.getBytes();
             int offset = 0;
             int length = stream.length;
-            String path=System.getProperty("user.dir");
-            File newFile = new File(path);
+            //后缀名
+            String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            //如果不存在则获取该文件夹
+            String dirs = String.format("%s\\%s",System.getProperty("user.dir"),"files");
+            File newDirs = new File(dirs);
+            if(!newDirs.isDirectory()){
+                newDirs.mkdirs();
+            }
+            //不存在则创建该文件
+            String filePath=String.format("%s\\%s",dirs,UUID.randomUUID()+extension);
+            File newFile = new File(filePath);
             if(null==file){
                 newFile.createNewFile();
             }
+            //向文件写入数据
             FileOutputStream outputStream=new FileOutputStream(newFile);
             outputStream.write(stream,offset,length);
             outputStream.close();

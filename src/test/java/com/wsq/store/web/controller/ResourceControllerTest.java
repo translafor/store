@@ -26,7 +26,7 @@ public class ResourceControllerTest {
     public void logUpload() throws Exception {
         String url = "http://127.0.0.1:8090/fileUpload";
 //        String pathname = new File("logs" + File.separator + "log_20190310.log").getCanonicalPath();
-        String pathname = "C:\\Users\\wushiquan\\Desktop\\test.txt";
+        String pathname = "C:\\Users\\Administrator\\Desktop\\Image_20201015100644.png";
         logUpload(url, pathname);
     }
 
