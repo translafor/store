@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 在上传文件后 将相对路径保存下来到数据库 只提供前端主键id
@@ -27,5 +28,9 @@ public class ResourceController {
         }catch (Exception e){
             return ResponseResult.fail(-100,"");
         }
+    }
+
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response){
+        resourceService.downloadFile(request,response);
     }
 }
