@@ -1,5 +1,9 @@
 package com.wsq.store.web.service;
 
+import com.wsq.store.common.domain.base.Resource;
+import com.wsq.store.common.mapper.ResourceMapper;
+import com.wsq.store.web.utils.SnowFlake;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -19,12 +25,16 @@ import java.util.UUID;
 @Service
 public class ResourceService {
 
+    @Autowired
+    SnowFlake snowFlake;
+    @Autowired
+    ResourceMapper resourceMapper;
     /**
      * 现阶段只是测试 需要将路径存到表内 只暴露id，更后面需要尝试搭建文件服务器，而不要用本地（fds）
      * @param file
      * @return
      */
-    public Object upload(MultipartFile file) {
+    public Map upload(MultipartFile file) {
         if (file.isEmpty()) {
             System.out.println("文件为空");
         }
@@ -40,8 +50,9 @@ public class ResourceService {
             if(!newDirs.isDirectory()){
                 newDirs.mkdirs();
             }
+            String fileName = UUID.randomUUID()+extension;
             //不存在则创建该文件
-            String filePath=String.format("%s\\%s",dirs,UUID.randomUUID()+extension);
+            String filePath=String.format("%s\\%s",dirs,fileName);
             File newFile = new File(filePath);
             if(null==file){
                 newFile.createNewFile();
@@ -51,20 +62,57 @@ public class ResourceService {
             outputStream.write(stream,offset,length);
             outputStream.close();
 
+            //插入关联表
+            Resource resource = insertResource(fileName,String.format("\\%s",fileName),length);
+            resourceMapper.insertSelective(resource);
+
+            Map<String,Long> res = new HashMap<>();
+            res.put("resourceId",resource.getFId());
+            return res;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    //https://blog.csdn.net/xiongyouqiang/article/details/80439883
+    /**
+     * 插入resource表
+     * @param fileName
+     * @param filePath
+     * @param length
+     */
+    private Resource insertResource(String fileName, String filePath, int length) {
+        Resource resource = new Resource();
+        resource.setFId(snowFlake.nextId());
+        resource.setFFileName(fileName);
+        resource.setFFilePath(filePath);
+        resource.setFLength(length);
+        return resource;
+    }
+
+
+
+    /**
+     * //https://blog.csdn.net/xiongyouqiang/article/details/80439883
+     * 下载文件
+     * @param request
+     * @param response
+     */
     public void downloadFile(HttpServletRequest request, HttpServletResponse response) {
-        String fileName = request.getParameter("fileName");
+
+        Long resourceId = Long.valueOf(request.getParameter("resourceId"));
+        Resource resource = resourceMapper.selectByPrimaryKey(resourceId);
+
+        String filePath = resource.getFFilePath();
+        String fileName = resource.getFFileName();
+
+        //文件目录和文件全路径
         String dirs = String.format("%s\\%s",System.getProperty("user.dir"),"files");
-        String filePath=String.format("%s\\%s",dirs,fileName);
+        String fileAllPath=String.format("%s%s",dirs,filePath);
+
         FileInputStream inputStream = null;
         BufferedInputStream bis = null;
-        File file =new File(filePath);
+        File file =new File(fileAllPath);
         try{
             // 配置文件下载
             response.setHeader("content-type", "application/octet-stream");

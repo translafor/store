@@ -1,0 +1,60 @@
+-- ----------------------------
+-- Table structure for T_AMK_User
+-- ----------------------------
+CREATE TABLE IF NOT EXISTS `T_STORE_User` (
+  `FId` bigint(20) NOT NULL DEFAULT '0',
+  `FUserName` varchar(100) DEFAULT '' COMMENT '用户名',
+  `FEmail` varchar(50) DEFAULT '邮箱',
+  `FHeadResId` bigint(20) DEFAULT 0 COMMENT '头像',
+  `FPhone` varchar(256) DEFAULT '' COMMENT '手机号(AES加密)',
+  `FIdentNumber` varchar(256) DEFAULT '' COMMENT '身份证号码(AES加密)',
+  `FIsRealAuth` char(1) DEFAULT '0' COMMENT '是否实名认证 0否 1是',
+  `FCreateTime` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `FModifyTime` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`FId`),
+  INDEX IDX_AMK_User_FUserName (FUserName)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户主表';
+
+
+/*用户角色*/
+CREATE TABLE IF NOT EXISTS `T_STORE_Role` (
+  `FId` bigint(20) NOT NULL DEFAULT '0',
+  `FRoleNumber` varchar(36) DEFAULT '角色编码：ROLE001：超级管理员,ROLE002:运营专员',
+  `FCreateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`FId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色';
+
+
+
+/*角色权限表*/
+CREATE TABLE IF NOT EXISTS `T_STORE_RolePermission` (
+  `FId` bigint(20) NOT NULL DEFAULT '0',
+  `FRoleId` bigint(20) DEFAULT 0 COMMENT '角色id',
+  `FPermission` varchar(200) DEFAULT '权限内容 例如/sys/**:立即有权限访问（http://localhost:8888/sys/sysUser/get/1）（参考了springsecurity）',
+  `FCreateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`FId`),
+  INDEX IDX_STORE_RolePermission_FRoleId (FRoleId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色权限表';
+
+
+
+/*用户关联角色表*/
+CREATE TABLE IF NOT EXISTS `T_STORE_UserRefRole` (
+  `FId` bigint(20) NOT NULL DEFAULT '0',
+  `FUserId` bigint(20) DEFAULT '0',
+  `FRoleId` bigint(20) DEFAULT '0',
+  `FCreateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`FId`),
+  INDEX IDX_STORE_UserRefRole_FUserId (FUserId),
+  INDEX IDX_STORE_UserRefRole_FRoleId(FRoleId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户关联角色表';
+
+/*文件资源表*/
+CREATE TABLE IF NOT EXISTS `T_STORE_Resource` (
+  `FId` bigint(20) NOT NULL DEFAULT '0',
+  `FFileName` varchar(256) DEFAULT '' COMMENT '文件名',
+  `FLength` int(11) NOT NULL DEFAULT '0' COMMENT '文件长度',
+  `FFilePath` varchar(256) DEFAULT '' COMMENT '文件路径',
+  `FCreateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`FId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='文件资源表';

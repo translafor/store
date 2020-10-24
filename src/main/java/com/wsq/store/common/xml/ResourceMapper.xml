@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wsq.store.common.mapper.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.wsq.store.common.domain.base.Resource" >
+    <id column="FId" property="FId" jdbcType="BIGINT" />
+    <result column="FFileName" property="FFileName" jdbcType="VARCHAR" />
+    <result column="FLength" property="FLength" jdbcType="INTEGER" />
+    <result column="FFilePath" property="FFilePath" jdbcType="VARCHAR" />
+    <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    FId, FFileName, FLength, FFilePath, FCreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_resource
+    where FId = #{FId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >insertSelective
+    delete from t_store_resource
+    where FId = #{FId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wsq.store.common.domain.base.Resource" >
+    insert into t_store_resource (FId, FFileName, FLength, 
+      FFilePath, FCreateTime)
+    values (#{FId,jdbcType=BIGINT}, #{FFileName,jdbcType=VARCHAR}, #{FLength,jdbcType=INTEGER}, 
+      #{FFilePath,jdbcType=VARCHAR}, #{FCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wsq.store.common.domain.base.Resource" >
+    insert into t_store_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        FId,
+      </if>
+      <if test="FFileName != null" >
+        FFileName,
+      </if>
+      <if test="FLength != null" >
+        FLength,
+      </if>
+      <if test="FFilePath != null" >
+        FFilePath,
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="FId != null" >
+        #{FId,jdbcType=BIGINT},
+      </if>
+      <if test="FFileName != null" >
+        #{FFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="FLength != null" >
+        #{FLength,jdbcType=INTEGER},
+      </if>
+      <if test="FFilePath != null" >
+        #{FFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wsq.store.common.domain.base.Resource" >
+    update t_store_resource
+    <set >
+      <if test="FFileName != null" >
+        FFileName = #{FFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="FLength != null" >
+        FLength = #{FLength,jdbcType=INTEGER},
+      </if>
+      <if test="FFilePath != null" >
+        FFilePath = #{FFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="FCreateTime != null" >
+        FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wsq.store.common.domain.base.Resource" >
+    update t_store_resource
+    set FFileName = #{FFileName,jdbcType=VARCHAR},
+      FLength = #{FLength,jdbcType=INTEGER},
+      FFilePath = #{FFilePath,jdbcType=VARCHAR},
+      FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP}
+    where FId = #{FId,jdbcType=BIGINT}
+  </update>
+</mapper>

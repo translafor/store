@@ -5,6 +5,7 @@ import com.wsq.store.web.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ public class ResourceController {
         }
     }
 
+    @GetMapping(value = "/downloadFile", produces = "application/json;charset=UTF-8")
     public void downloadFile(HttpServletRequest request, HttpServletResponse response){
         resourceService.downloadFile(request,response);
     }
