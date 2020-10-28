@@ -17,8 +17,13 @@ public class EncoderUtilsTest {
         System.out.println(decoderString);
     }
 
+    static void testJDKMD5(){
+        String encodeString = EncoderUtils.jdkMD5("sssssssssssss",null);
+        System.out.println(encodeString);
+    }
+
     public static void main(String[] args) {
-        testBase64();
+        testJDKMD5();
     }
 
 }

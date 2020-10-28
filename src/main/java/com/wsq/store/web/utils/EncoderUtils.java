@@ -2,6 +2,9 @@ package com.wsq.store.web.utils;
 
 import sun.misc.BASE64Encoder;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * @description:提供各种加密工具方法
  * @projectName:store
@@ -55,4 +58,34 @@ public class EncoderUtils {
         return "";
     }
 
+    private static final String[] hexDigits = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+
+    private static String bytesToHexString(byte[] b) {
+        StringBuffer resultSb = new StringBuffer();
+        for (int i = 0; i < b.length; i++) {
+            int n = b[i];
+            if (n < 0) {
+                n += 256;
+            }
+            int d1 = n / 16;
+            int d2 = n % 16;
+            resultSb.append(hexDigits[d1] + hexDigits[d2]);
+        }
+        return resultSb.toString();
+    }
+
+
+    public static String jdkMD5(String origin,String charsetname){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            if ((charsetname == null) || ("".equals(charsetname))) {
+                return bytesToHexString(md.digest(origin.getBytes()));
+            } else {
+                return bytesToHexString(md.digest(origin.getBytes(charsetname)));
+            }
+        } catch (Exception localException) {
+        }
+
+        return "";
+    }
 }
