@@ -22,8 +22,17 @@ public class EncoderUtilsTest {
         System.out.println(encodeString);
     }
 
+    static void testAES(){
+        String key = "123456789";
+        String content = "woyaojiamia";
+        String encoderString = EncoderUtils.AESEncode(key,content);
+        System.out.println(encoderString);
+        String decoderString = DecoderUtils.aesDncode(key,encoderString);
+        System.out.println(decoderString);
+    }
+
     public static void main(String[] args) {
-        testJDKMD5();
+        testAES();
     }
 
 }
