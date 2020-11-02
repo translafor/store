@@ -1,5 +1,6 @@
 package com.wsq.store.web.controller;
 
+import com.wsq.store.common.config.CommonConfig;
 import com.wsq.store.common.domain.user.User;
 import com.wsq.store.common.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -16,6 +18,8 @@ public class LoginController {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    CommonConfig commonConfig;
 
     private static final String PHONE = "phone";
     private static final String USER_PASSWORD = "password";
@@ -27,10 +31,14 @@ public class LoginController {
      */
     @RequestMapping(value="/login", method = RequestMethod.GET)
     public void userLogin(HttpServletRequest rps, HttpServletResponse rpo){
+        //手机号需要用正则做格式判断
         String phone = rps.getParameter(PHONE);
         String password = rps.getParameter(USER_PASSWORD);
+
+        //获取用户
         User userSelect = new User();
         userSelect.setFPhone(phone);
-//        User user = userMapper.updateByPrimaryKeySelective(userSelect);
+        List<User> userList = userMapper.selectBySelective(userSelect);
+
     }
 }

@@ -14,7 +14,7 @@ import java.security.SecureRandom;
  * @description:提供各种加密工具方法
  * @projectName:store
  * @see:com.wsq.store.web.utils
- * @author:吴仕权
+ * @author:translafor
  * @createTime:2020/10/26 20:34
  * @version:1.0
  */
@@ -30,7 +30,7 @@ public class EncoderUtils {
      * description base64加密方法
      * param [src]
      * return java.lang.String
-     * author 吴仕权
+     * author translafor
      * createTime 2020/10/26 20:37
      **/
     public static String base64Emcode(String src,String base64Way){
@@ -84,7 +84,7 @@ public class EncoderUtils {
      * description
      * param [origin, charsetname]
      * return java.lang.String
-     * author 吴仕权
+     * author translafor
      * createTime 2020/10/29 21:47
      **/
     public static String jdkMD5(String origin,String charsetname){
@@ -112,7 +112,7 @@ public class EncoderUtils {
      *    * 6.返回字符串
      * param [encodeRules, content]
      * return java.lang.String
-     * author 吴仕权
+     * author translafor
      * createTime 2020/10/30 9:40
      **/
     public static String AESEncode(String encodeRules,String content){

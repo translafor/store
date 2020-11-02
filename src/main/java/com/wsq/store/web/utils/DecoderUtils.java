@@ -21,7 +21,7 @@ public class DecoderUtils {
      * description base64解密
      * param [encode, base64Way]
      * return java.lang.String
-     * author 吴仕权
+     * author translafor
      * createTime 2020/10/27 20:34
      **/
     public static String baseDecoder(String encode,String base64Way){
@@ -70,7 +70,7 @@ public class DecoderUtils {
      *      * 3.将加密内容解密
      * param [encodeRules, content]
      * return java.lang.String
-     * author 吴仕权
+     * author translafor
      * createTime 2020/10/30 10:20
      **/
     public static String aesDncode(String encodeRules,String content){
