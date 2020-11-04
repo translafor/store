@@ -1,8 +1,10 @@
 package com.wsq.store.web.controller;
 
 import com.wsq.store.common.config.CommonConfig;
+import com.wsq.store.common.config.UserNotifyException;
 import com.wsq.store.common.domain.user.User;
 import com.wsq.store.common.mapper.UserMapper;
+import com.wsq.store.web.utils.StringHandleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,10 @@ public class LoginController {
     public void userLogin(HttpServletRequest rps, HttpServletResponse rpo){
         //手机号需要用正则做格式判断
         String phone = rps.getParameter(PHONE);
+        boolean isPhone = StringHandleUtils.checkIsMobilePhone(phone);
+        if(!isPhone){
+//            throw new UserNotifyException("qing")
+        }
         String password = rps.getParameter(USER_PASSWORD);
 
         //获取用户
