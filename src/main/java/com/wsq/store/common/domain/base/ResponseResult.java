@@ -51,5 +51,9 @@ public class ResponseResult<T> implements Serializable {
         return new ResponseResult(-1,msg);
     }
 
+    public static ResponseResult fail(String msg){
+        return new ResponseResult(-1,msg);
+    }
+
 
 }

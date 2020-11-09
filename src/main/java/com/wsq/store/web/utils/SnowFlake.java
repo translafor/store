@@ -2,6 +2,13 @@ package com.wsq.store.web.utils;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * description 
+ * param 美团算法优化
+ * return 
+ * author translafor
+ * createTime 2020/11/9 17:24
+ **/
 @Component
 public class SnowFlake {
     //起始的时间戳
