@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * param 美团算法优化
  * return 
  * author translafor
- * createTime 2020/11/9 17:24
+ * createTime 2020/11/11 20:14
  **/
 @Component
 public class SnowFlake {

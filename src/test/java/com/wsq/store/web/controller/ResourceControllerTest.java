@@ -24,10 +24,10 @@ public class ResourceControllerTest {
 
     @Test
     public void logUpload() throws Exception {
-        String url = "http://127.0.0.1:8090/fileUpload";
-//        String pathname = new File("logs" + File.separator + "log_20190310.log").getCanonicalPath();
-        String pathname = "C:\\Users\\wushiquan\\Desktop\\test.txt";
-        logUpload(url, pathname);
+//        String url = "http://127.0.0.1:8090/fileUpload";
+////        String pathname = new File("logs" + File.separator + "log_20190310.log").getCanonicalPath();
+//        String pathname = "C:\\Users\\wushiquan\\Desktop\\test.txt";
+//        logUpload(url, pathname);
     }
 
     private static void logUpload(String url, String pathname) {
