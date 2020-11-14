@@ -5,7 +5,10 @@ import com.wsq.store.common.config.UserNotifyException;
 import com.wsq.store.common.domain.user.User;
 import com.wsq.store.common.mapper.UserMapper;
 import com.wsq.store.web.enums.ExceptionEnums;
+import com.wsq.store.web.utils.EncoderUtils;
 import com.wsq.store.web.utils.StringHandleUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -13,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.logging.Logger;
+
 
 /**
  * @description:
@@ -30,7 +33,7 @@ public class LoginService {
     UserMapper userMapper;
     @Autowired
     CommonConfig commonConfig;
-
+    Logger logger = LoggerFactory.getLogger(LoginService.class);
 
     private static final String PHONE = "phone";
     private static final String USER_PASSWORD = "password";
@@ -52,8 +55,15 @@ public class LoginService {
             throw new UserNotifyException(ExceptionEnums.NOT_EXIST_PHONE.getCode(),ExceptionEnums.NOT_EXIST_PHONE.getMsg());
         }
         if(userList.size()>1){
-//            LoggerH
+            logger.info(String.format("手机号%s对应多个用户",userSelect.getFPhone()));
+            throw new UserNotifyException(ExceptionEnums.USERINFO_ERROR.getCode(),ExceptionEnums.USERINFO_ERROR.getMsg());
         }
+        User user = userList.get(0);
+        if(!password.equals(EncoderUtils.AESEncode(commonConfig.getAesKey(),user.getFPassword()))){
+            throw new UserNotifyException(ExceptionEnums.PASSWROD_ERROR.getCode(),ExceptionEnums.PASSWROD_ERROR.getMsg());
+        }
+
+        //采用token+redis 不用jwt的原因在于jwt无法主动踢出用户
         return null;
     }
 }

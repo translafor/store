@@ -7,13 +7,14 @@
     <result column="FEmail" property="FEmail" jdbcType="VARCHAR" />
     <result column="FHeadResId" property="FHeadResId" jdbcType="BIGINT" />
     <result column="FPhone" property="FPhone" jdbcType="VARCHAR" />
+    <result column="FPassword" property="FPhone" jdbcType="VARCHAR" />
     <result column="FIdentNumber" property="FIdentNumber" jdbcType="VARCHAR" />
     <result column="FIsRealAuth" property="FIsRealAuth" jdbcType="CHAR" />
     <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
     <result column="FModifyTime" property="FModifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    FId, FUserName, FEmail, FHeadResId, FPhone, FIdentNumber, FIsRealAuth, FCreateTime, 
+    FId, FUserName, FEmail, FHeadResId, FPhone, FPassword, FIdentNumber, FIsRealAuth, FCreateTime,
     FModifyTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -35,11 +36,11 @@
   </delete>
   <insert id="insert" parameterType="com.wsq.store.common.domain.user.User" >
     insert into t_store_user (FId, FUserName, FEmail, 
-      FHeadResId, FPhone, FIdentNumber, 
+      FHeadResId, FPhone, FPassword, FIdentNumber,
       FIsRealAuth, FCreateTime, FModifyTime
       )
     values (#{FId,jdbcType=BIGINT}, #{FUserName,jdbcType=VARCHAR}, #{FEmail,jdbcType=VARCHAR}, 
-      #{FHeadResId,jdbcType=BIGINT}, #{FPhone,jdbcType=VARCHAR}, #{FIdentNumber,jdbcType=VARCHAR}, 
+      #{FHeadResId,jdbcType=BIGINT}, #{FPhone,jdbcType=VARCHAR}, #{FPassword,jdbcType=VARCHAR}, #{FIdentNumber,jdbcType=VARCHAR},
       #{FIsRealAuth,jdbcType=CHAR}, #{FCreateTime,jdbcType=TIMESTAMP}, #{FModifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -60,6 +61,9 @@
       </if>
       <if test="FPhone != null" >
         FPhone,
+      </if>
+      <if test="FPassword != null" >
+        FPassword,
       </if>
       <if test="FIdentNumber != null" >
         FIdentNumber,
@@ -90,6 +94,9 @@
       <if test="FPhone != null" >
         #{FPhone,jdbcType=VARCHAR},
       </if>
+      <if test="FPassword != null" >
+        #{FPassword,jdbcType=VARCHAR},
+      </if>
       <if test="FIdentNumber != null" >
         #{FIdentNumber,jdbcType=VARCHAR},
       </if>
@@ -119,6 +126,9 @@
       <if test="FPhone != null" >
         FPhone = #{FPhone,jdbcType=VARCHAR},
       </if>
+      <if test="FPassword != null" >
+        FPhone = #{FPassword,jdbcType=VARCHAR},
+      </if>
       <if test="FIdentNumber != null" >
         FIdentNumber = #{FIdentNumber,jdbcType=VARCHAR},
       </if>
@@ -140,6 +150,7 @@
       FEmail = #{FEmail,jdbcType=VARCHAR},
       FHeadResId = #{FHeadResId,jdbcType=BIGINT},
       FPhone = #{FPhone,jdbcType=VARCHAR},
+      FPassword = #{FPassword,jdbcType=VARCHAR},
       FIdentNumber = #{FIdentNumber,jdbcType=VARCHAR},
       FIsRealAuth = #{FIsRealAuth,jdbcType=CHAR},
       FCreateTime = #{FCreateTime,jdbcType=TIMESTAMP},

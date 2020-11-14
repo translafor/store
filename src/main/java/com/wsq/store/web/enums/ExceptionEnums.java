@@ -11,7 +11,9 @@ package com.wsq.store.web.enums;
 public enum ExceptionEnums {
 
     NOT_PHONE(-100,"手机号格式不正确"),
-    NOT_EXIST_PHONE(-101,"手机号未注册");
+    NOT_EXIST_PHONE(-101,"手机号未注册,请前往注册"),
+    USERINFO_ERROR(-102,"用户信息异常"),
+    PASSWROD_ERROR(-103,"密码错误");
     private int code;
     private String msg;
 
