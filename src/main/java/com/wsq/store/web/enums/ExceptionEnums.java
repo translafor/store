@@ -9,7 +9,7 @@ package com.wsq.store.web.enums;
  * @version:1.0
  */
 public enum ExceptionEnums {
-
+    USER_NOT_LOGIN(-10,"用户未登录"),
     NOT_PHONE(-100,"手机号格式不正确"),
     NOT_EXIST_PHONE(-101,"手机号未注册,请前往注册"),
     USERINFO_ERROR(-102,"用户信息异常"),

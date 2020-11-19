@@ -1,5 +1,6 @@
 package com.wsq.store.common.config;
 
+import com.wsq.store.web.enums.ExceptionEnums;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,6 +25,10 @@ public class UserNotifyException extends RuntimeException {
         //super关键字可以在子类的构造方法中显示地调用父类的构造方法   https://www.cnblogs.com/bluetree2/p/10784962.html
         super(message);
         code = code;
+    }
+
+    public static UserNotifyException buildUserNotifyException(ExceptionEnums exceptionEnums){
+        return new UserNotifyException(exceptionEnums.getCode(),exceptionEnums.getMsg());
     }
 
     public UserNotifyException(String message) {

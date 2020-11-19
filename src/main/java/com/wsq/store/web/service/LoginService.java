@@ -1,7 +1,9 @@
 package com.wsq.store.web.service;
 
+import com.wsq.store.common.cacher.RedisService;
 import com.wsq.store.common.config.CommonConfig;
 import com.wsq.store.common.config.UserNotifyException;
+import com.wsq.store.common.constant.LoginConstant;
 import com.wsq.store.common.domain.user.User;
 import com.wsq.store.common.mapper.UserMapper;
 import com.wsq.store.web.enums.ExceptionEnums;
@@ -16,6 +18,8 @@ import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -33,12 +37,14 @@ public class LoginService {
     UserMapper userMapper;
     @Autowired
     CommonConfig commonConfig;
+    @Autowired
+    RedisService redisService;
     Logger logger = LoggerFactory.getLogger(LoginService.class);
 
     private static final String PHONE = "phone";
     private static final String USER_PASSWORD = "password";
 
-    public Object login(HttpServletRequest rps, HttpServletResponse rpo) {
+    public void login(HttpServletRequest rps, HttpServletResponse rpo) {
         //手机号需要用正则做格式判断
         String phone = rps.getParameter(PHONE);
         boolean isPhone = StringHandleUtils.checkIsMobilePhone(phone);
@@ -64,6 +70,8 @@ public class LoginService {
         }
 
         //采用token+redis 不用jwt的原因在于jwt无法主动踢出用户
-        return null;
+        String uuid = UUID.randomUUID().toString().replaceAll("-","");
+        redisService.addStringValue(uuid,user,2, TimeUnit.MINUTES);
+        rpo.addHeader(LoginConstant.AUTH_TOKEN,uuid);
     }
 }
