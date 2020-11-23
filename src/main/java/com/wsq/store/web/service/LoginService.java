@@ -7,6 +7,7 @@ import com.wsq.store.common.constant.LoginConstant;
 import com.wsq.store.common.domain.user.User;
 import com.wsq.store.common.mapper.UserMapper;
 import com.wsq.store.web.enums.ExceptionEnums;
+import com.wsq.store.web.utils.DecoderUtils;
 import com.wsq.store.web.utils.EncoderUtils;
 import com.wsq.store.web.utils.StringHandleUtils;
 import org.slf4j.Logger;
@@ -44,7 +45,7 @@ public class LoginService {
     private static final String PHONE = "phone";
     private static final String USER_PASSWORD = "password";
 
-    public void login(HttpServletRequest rps, HttpServletResponse rpo) {
+    public String login(HttpServletRequest rps, HttpServletResponse rpo) {
         //手机号需要用正则做格式判断
         String phone = rps.getParameter(PHONE);
         boolean isPhone = StringHandleUtils.checkIsMobilePhone(phone);
@@ -65,7 +66,7 @@ public class LoginService {
             throw new UserNotifyException(ExceptionEnums.USERINFO_ERROR.getCode(),ExceptionEnums.USERINFO_ERROR.getMsg());
         }
         User user = userList.get(0);
-        if(!password.equals(EncoderUtils.AESEncode(commonConfig.getAesKey(),user.getFPassword()))){
+        if(!password.equals(DecoderUtils.aesDncode(commonConfig.getAesKey(),user.getFPassword()))){
             throw new UserNotifyException(ExceptionEnums.PASSWROD_ERROR.getCode(),ExceptionEnums.PASSWROD_ERROR.getMsg());
         }
 
@@ -73,5 +74,7 @@ public class LoginService {
         String uuid = UUID.randomUUID().toString().replaceAll("-","");
         redisService.addStringValue(uuid,user,2, TimeUnit.MINUTES);
         rpo.addHeader(LoginConstant.AUTH_TOKEN,uuid);
+
+        return "success";
     }
 }

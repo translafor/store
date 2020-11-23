@@ -1,6 +1,8 @@
 package com.wsq.store.common.config;
 
 import com.wsq.store.common.domain.base.ResponseResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * description 用来处理UserNotifyException，主要是对用户的提示性异常
      * param 
@@ -28,6 +31,7 @@ public class GlobalExceptionHandler {
     @ResponseBody//ResponseBody作用和原理：https://blog.csdn.net/jiahao1186/article/details/91980316   https://www.cnblogs.com/myjjy/p/8717435.html
     @ExceptionHandler(value = UserNotifyException.class)
     public ResponseResult<?> userNotifyExceptionHandler(HttpServletRequest httpServletRequest,UserNotifyException exception){
+        logger.error(exception.getMessage(),exception);
         return ResponseResult.fail(exception.getCode(),exception.getMessage());
     }
 
@@ -35,6 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseResult<?> exceptionHandler(HttpServletRequest httpServletRequest,Exception exception){
         //instanceof:https://blog.csdn.net/kuangay/article/details/81563992
+        logger.error(exception.getMessage(),exception);
         if(exception instanceof UserNotifyException){
 //            UserNotifyException userNotifyException
 //            return ResponseResult.fail(exception.getCode(),exception.getMessage());

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CommonConfig {
-    @Value("${store.aes.key}}")
+    @Value("${store.aes.key}")
     private String aesKey;
 
     public String getAesKey() {

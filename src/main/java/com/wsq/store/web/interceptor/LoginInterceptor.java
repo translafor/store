@@ -34,6 +34,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             throw UserNotifyException.buildUserNotifyException(ExceptionEnums.USER_NOT_LOGIN);
         }
         Object userInfo = redisService.getStringValue(token);
+        if(null==userInfo){
+            //登录失败，跳转到登录页
+            response.sendRedirect(request.getContextPath());
+            return false;
+        }
         return true;
     }
 }

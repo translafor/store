@@ -23,8 +23,8 @@ public class EncoderUtilsTest {
     }
 
     static void testAES(){
-        String key = "123456789";
-        String content = "woyaojiamia";
+        String key = "400500600700";
+        String content = "wsqddd";
         String encoderString = EncoderUtils.AESEncode(key,content);
         System.out.println(encoderString);
         String decoderString = DecoderUtils.aesDncode(key,encoderString);

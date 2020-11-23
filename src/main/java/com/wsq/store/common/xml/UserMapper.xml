@@ -7,7 +7,7 @@
     <result column="FEmail" property="FEmail" jdbcType="VARCHAR" />
     <result column="FHeadResId" property="FHeadResId" jdbcType="BIGINT" />
     <result column="FPhone" property="FPhone" jdbcType="VARCHAR" />
-    <result column="FPassword" property="FPhone" jdbcType="VARCHAR" />
+    <result column="FPassword" property="FPassword" jdbcType="VARCHAR" />
     <result column="FIdentNumber" property="FIdentNumber" jdbcType="VARCHAR" />
     <result column="FIsRealAuth" property="FIsRealAuth" jdbcType="CHAR" />
     <result column="FCreateTime" property="FCreateTime" jdbcType="TIMESTAMP" />
@@ -24,11 +24,16 @@
     where FId = #{FId,jdbcType=BIGINT}
   </select>
 
-  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="com.wsq.store.common.domain.user.User" >
     select
     <include refid="Base_Column_List" />
     from t_store_user
-    where FId = #{FId,jdbcType=BIGINT}
+    <where>
+      1=1
+      <if test="FPhone !=null">
+        and  FPhone = #{FPhone}
+      </if>
+    </where>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_store_user
