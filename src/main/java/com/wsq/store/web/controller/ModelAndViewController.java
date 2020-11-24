@@ -20,5 +20,9 @@ public class ModelAndViewController {
         return modelAndView;
     }
 
-
+    @GetMapping("/home")
+    public ModelAndView home(ModelAndView modelAndView){
+        modelAndView.setViewName("home");
+        return modelAndView;
+    }
 }

@@ -21,11 +21,6 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @GetMapping("/login")
-    public ModelAndView login(ModelAndView modelAndView){
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
 
     /**
      * 通过手机号+密码登录
