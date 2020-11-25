@@ -13,7 +13,9 @@ public enum ExceptionEnums {
     NOT_PHONE(-100,"手机号格式不正确"),
     NOT_EXIST_PHONE(-101,"手机号未注册,请前往注册"),
     USERINFO_ERROR(-102,"用户信息异常"),
-    PASSWROD_ERROR(-103,"密码错误");
+    PASSWROD_ERROR(-103,"密码错误"),
+    ENMPTY_PHONE(-104,"手机号为空"),
+    ENMPT_PASSWORD(-105,"密码为空");
     private int code;
     private String msg;
 

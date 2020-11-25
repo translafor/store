@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,11 +49,18 @@ public class LoginService {
     public String login(HttpServletRequest rps, HttpServletResponse rpo) {
         //手机号需要用正则做格式判断
         String phone = rps.getParameter(PHONE);
+        String password = rps.getParameter(USER_PASSWORD);
+        if(StringUtils.isEmpty(phone)){
+            throw UserNotifyException.buildUserNotifyException(ExceptionEnums.ENMPTY_PHONE);
+        }
+        if(StringUtils.isEmpty(password)){
+            throw UserNotifyException.buildUserNotifyException(ExceptionEnums.ENMPT_PASSWORD);
+        }
         boolean isPhone = StringHandleUtils.checkIsMobilePhone(phone);
         if(!isPhone){
             throw new UserNotifyException(ExceptionEnums.NOT_PHONE.getCode(),ExceptionEnums.NOT_PHONE.getMsg());
         }
-        String password = rps.getParameter(USER_PASSWORD);
+
 
         //获取用户
         User userSelect = new User();

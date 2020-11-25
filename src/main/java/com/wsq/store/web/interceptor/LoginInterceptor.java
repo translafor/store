@@ -5,6 +5,7 @@ import com.wsq.store.common.config.UserNotifyException;
 import com.wsq.store.common.constant.LoginConstant;
 import com.wsq.store.web.enums.ExceptionEnums;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @createTime:2020/11/12 20:34
  * @version:1.0
  */
+@Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
