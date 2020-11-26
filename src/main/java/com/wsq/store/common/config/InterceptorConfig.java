@@ -27,9 +27,18 @@ public class InterceptorConfig implements WebMvcConfigurer {
         };
 
         //注册一个登录拦截器
-        registry.addInterceptor(new LoginInterceptor())
+        registry.addInterceptor(loginInterceptor())
                 .addPathPatterns(addPathPatterns)
                 .excludePathPatterns(excludePathPaterns);
+    }
+
+    /**
+     * 将自定义拦截器作为Bean写入配置
+     * @return
+     */
+    @Bean
+    public LoginInterceptor loginInterceptor() {
+        return new LoginInterceptor();
     }
 
 //https://www.cnblogs.com/shamo89/p/8534580.html
