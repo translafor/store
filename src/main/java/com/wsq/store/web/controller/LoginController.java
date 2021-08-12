@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 //@RequestMapping("/user")
 public class LoginController {
 
+    /**
+     * 测试更改啊啊啊
+     */
     Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     LoginService loginService;
@@ -27,7 +30,7 @@ public class LoginController {
      * @param rps
      * @param rpo
      */
-    @GetMapping("/logins")
+    @GetMapping("/logisns")
     public ResponseResult<?> userLogin(HttpServletRequest rps, HttpServletResponse rpo){
         try {
             return ResponseResult.success(loginService.login(rps,rpo));
