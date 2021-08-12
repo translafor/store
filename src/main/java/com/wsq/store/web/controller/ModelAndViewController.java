@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RestController
 public class ModelAndViewController {
-    @GetMapping("/logsin")
+    @GetMapping("/losssgsin")
     public ModelAndView login(ModelAndView modelAndView){
         modelAndView.setViewName("login");
         return modelAndView;
