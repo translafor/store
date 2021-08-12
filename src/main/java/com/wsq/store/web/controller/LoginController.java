@@ -30,9 +30,10 @@ public class LoginController {
      * @param rps
      * @param rpo
      */
-    @GetMapping("/logisnkkkkks")
+    @GetMapping("/dddd")
     public ResponseResult<?> userLogin(HttpServletRequest rps, HttpServletResponse rpo){
         try {
+            System.out.println();
             return ResponseResult.success(loginService.login(rps,rpo));
         }catch (UserNotifyException e){
             logger.error(e.getMessage(),e);
