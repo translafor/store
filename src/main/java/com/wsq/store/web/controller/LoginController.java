@@ -30,7 +30,7 @@ public class LoginController {
      * @param rps
      * @param rpo
      */
-    @GetMapping("/httttt")
+    @GetMapping("/httttwot")
     public ResponseResult<?> userLogin(HttpServletRequest rps, HttpServletResponse rpo){
         System.out.println();
         try {
